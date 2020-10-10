@@ -68,3 +68,14 @@ COPY index.html /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
 ```
 </details>
+
+### 4.6 Budowanie własnego obrazu - czyli konteneryzacja aplikacji
+```bash
+cd 4.6
+docker image build -t myapp:1.0 .
+docker container run -d -p 8081:8080 --name myapp1 myapp:1.0
+docker image build -t myapp:2.0 .
+docker container run -d -p 8082:8080 --name myapp2 myapp:2.0
+docker container ls
+```
+
