@@ -80,8 +80,19 @@ docker container ls
 ```
 
 ### 4.7 Warstwowa budowa obrazu
-```
+```bash
 docker manifest inspect <image>
 docker image history ubuntu
 docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive:latest ubuntu
 ```
+
+### 4.8 Mutli-stage builds
+```bash
+cd 4.8
+docker image build -t myreact:latest .
+docker container run -d -p 8082:80 --name react-prod myreact:latest
+docker image build --target development --build-arg NODE_ENV=development -t react-dev .
+docker container run -d -p 3000:3000 --name react-dev react-dev:latest
+docker image inspect react-dev:latest
+docker image inspect myreact:latest
+```
