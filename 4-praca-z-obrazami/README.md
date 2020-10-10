@@ -24,4 +24,19 @@ docker image pull alpine:3.7
 docker image tag alpine:3.7 bpelikan/alpine:3.7
 docker image push bpelikan/alpine:3.7
 ```
-
+
+### 4.4 Dockerfile
+```dockerfile
+FROM alpine:3.9
+
+COPY text.txt .
+
+CMD ["cat", "text.txt"]
+```
+
+```bash
+cd 4.4
+ls -l
+docker image build -t myalpine . 
+docker container run --name alpine1 myalpine:latest
+```
