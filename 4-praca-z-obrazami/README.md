@@ -26,20 +26,24 @@ docker image push bpelikan/alpine:3.7
 ```
 
 ### 4.4 Dockerfile
-```dockerfile
-FROM alpine:3.9
-
-COPY text.txt .
-
-CMD ["cat", "text.txt"]
-```
-
 ```bash
 cd 4.4
 ls -l
 docker image build -t myalpine . 
 docker container run --name alpine1 myalpine:latest
 ```
+
+<details>
+  <summary><b><i>Dockerfile</i></b></summary>
+
+```Dockerfile
+FROM alpine:3.9
+
+COPY text.txt .
+
+CMD ["cat", "text.txt"]
+```
+</details>
 
 ### 4.5 Rozszerzenie oficjalnych obrazów
 ```bash
@@ -52,3 +56,15 @@ docker container run -d --name mynginx11 mynginx:latest
 docker container run --name mynginx12 -d -p 8081:80 mynginx:latest 
 curl http://localhost:8081/
 ```
+
+<details>
+  <summary><b><i>Dockerfile</i></b></summary>
+
+```Dockerfile
+FROM nginx:latest
+
+COPY index.html /usr/share/nginx/html
+
+CMD ["nginx", "-g", "daemon off;"]
+```
+</details>
