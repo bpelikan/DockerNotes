@@ -95,4 +95,8 @@ docker image build --target development --build-arg NODE_ENV=development -t reac
 docker container run -d -p 3000:3000 --name react-dev react-dev:latest
 docker image inspect react-dev:latest
 docker image inspect myreact:latest
-```
+```
+
+### 4.10 Docker Linter
+
+* [Hadolint](https://github.com/hadolint/hadolint) - narzędzie do walidacji oraz optymalizacji plików Dockerfile
