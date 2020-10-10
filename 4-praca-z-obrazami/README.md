@@ -79,3 +79,9 @@ docker container run -d -p 8082:8080 --name myapp2 myapp:2.0
 docker container ls
 ```
 
+### 4.7 Warstwowa budowa obrazu
+```
+docker manifest inspect <image>
+docker image history ubuntu
+docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive:latest ubuntu
+```
