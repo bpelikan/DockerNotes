@@ -57,4 +57,16 @@ docker container run -d --name wp -e WORDPRESS_DB_HOST=127.0.0.1:3306 -e WORDPRE
 docker container ls
 docker container inspect wp
 ```
-
+
+### 5.4 Sterownik sieciowy MACVLAN
+```bash
+docker network create -d macvlan --subnet=10.0.1.0/24 --gateway=10.0.1.1 -o parent=eth0 mymacvlan
+docker run --network mymacvlan -e DB=10.0.1.2 --name web mywebapp
+
+#
+docker network create -d macvlan --subnet=10.0.0.0/24 --gateway=10.0.0.1 -o parent=eth0 mymacvlan
+docker network ls
+docker container run -itd --name ubuntu1 --net mymacvlan ubuntu bash
+docker network inspect mymacvlan
+ifconfig
+```
