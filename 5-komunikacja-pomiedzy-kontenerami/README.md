@@ -45,4 +45,16 @@ docker container run -d -p 8080:80 -e WORDPRESS_DB_HOST=db:3306 -e WORDPRESS_DB_
 docker container ls
 curl localhost:8080
 ```
+
+### 5.3 Sterownik sieciowy HOST
+```bash
+docker run -d --network host --name db postgress
+docker run -d --network host --name web mywebapp
+
+#
+docker container run -d --name db -e MYSQL_DATABASE=exampledb -e MYSQL_USER=exampleuser -e MYSQL_PASSWORD=examplepass -e MYSQL_RANDOM_ROOT_PASSWORD=1 --network=host --name mysql-hostnet mysql:5.7
+docker container run -d --name wp -e WORDPRESS_DB_HOST=127.0.0.1:3306 -e WORDPRESS_DB_USER=exampleuser -e WORDPRESS_DB_PASSWORD=examplepass -e WORDPRESS_DB_NAME=exampledb --network=host wordpress:latest
+docker container ls
+docker container inspect wp
+```
 
