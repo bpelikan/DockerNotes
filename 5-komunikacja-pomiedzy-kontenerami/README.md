@@ -69,4 +69,13 @@ docker network ls
 docker container run -itd --name ubuntu1 --net mymacvlan ubuntu bash
 docker network inspect mymacvlan
 ifconfig
-```
+```
+
+### 5.5 Podłączanie kontenerów do sieci innego kontenera
+```bash
+docker network create -d bridge mynet
+docker container run -itd --name ubuntu1 --net mynet ubuntu bash
+docker container run -it --name ubuntu2 --network container:ubuntu1 ubuntu bash  #podłączenie do tej samej sieci co kontener ubuntu1
+  apt-get update && apt-get install -y iputils-ping
+  ping ubuntu1
+```
