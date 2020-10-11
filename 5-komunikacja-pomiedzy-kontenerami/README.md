@@ -36,4 +36,13 @@ docker container inspect ubuntu1
 docker network disconnect custombridge ubuntu4
 docker container inspect ubuntu4
 ```
+
+### 5.2 Komunikacja pomiędzy kontenerami - Wordpress i MySQL
+```bash
+docker network create -d bridge wp
+docker container run -d -p 3308:3306 --name db -e MYSQL_DATABASE=exampledb -e MYSQL_USER=exampleuser -e MYSQL_PASSWORD=examplepass -e MYSQL_RANDOM_ROOT_PASSWORD=1 --network=wp mysql:5.7
+docker container run -d -p 8080:80 -e WORDPRESS_DB_HOST=db:3306 -e WORDPRESS_DB_USER=exampleuser -e WORDPRESS_DB_PASSWORD=examplepass -e WORDPRESS_DB_NAME=exampledb --network=wp wordpress:latest
+docker container ls
+curl localhost:8080
+```
 
