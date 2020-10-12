@@ -68,6 +68,7 @@ docker volume prune #czyście wszystkie nieużywane volumeny
 # docker system prune #czyści wszystkie nieużywane elementy
 docker volume ls
 ```
+
 ### 6.3 Współdzielenie volumenów
 ```bash
 docker volume create myvolume1
@@ -93,6 +94,7 @@ docker container run -it --name u3 --volumes-from u1:ro ubuntu #ro - read-only
   echo "testowy plik3 123" > /myvolume1/test3.txt #brak dostępu
   exit
 ```
+
 ### 6.4 Bind Mounts
 ```bash
 mkdir -p /var/db/pgdata
@@ -112,4 +114,24 @@ docker build -t first_app:1.0 .
 docker container run -d -p 8080:80 --name first_app_container --mount type=bind,source="$(pwd)",target=/usr/share/nginx/html first_app:1.0
 ls
 vi index.html
-```
+```
+
+### 6.5 Zadanie domowe
+```bash
+docker volume create mysqldata
+docker volume ls
+docker image pull mysql:5.6.47
+docker container run -d --name db -e MYSQL_RANDOM_ROOT_PASSWORD=yes -v mysqldata:/var/lib/mysql mysql:5.6.47
+docker container logs db
+# [Note] [Entrypoint]: GENERATED ROOT PASSWORD: ooD0mie8pheej9oiquaiJaithaekieg0
+docker container rm db --force
+docker volume ls
+docker container run -d --name db2 -e MYSQL_RANDOM_ROOT_PASSWORD=yes -v mysqldata:/var/lib/mysql mysql:5.6.48
+docker container logs db2
+docker container ls
+MYSQL_ROOT_PASSWORD=ooD0mie8pheej9oiquaiJaithaekieg0
+MYSQL_ROOT_PASSWORD=piR7re1Eizeed7au5voo0raiNg1iep0b
+echo $MYSQL_ROOT_PASSWORD
+docker container exec db2 sh -c 'exec mysqldump --all-databases -u root -p "$MYSQL_ROOT_PASSWORD" > /home/all-db.sql'
+docker container exec db sh -c 'exec mysqldump --all-databases -u root -p "$MYSQL_ROOT_PASSWORD" > ./all-db.sql'
+```
