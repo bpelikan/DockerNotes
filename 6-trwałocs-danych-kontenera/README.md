@@ -67,4 +67,29 @@ docker volume ls
 docker volume prune #czyście wszystkie nieużywane volumeny
 # docker system prune #czyści wszystkie nieużywane elementy
 docker volume ls
+```
+### 6.3 Współdzielenie volumenów
+```bash
+docker volume create myvolume1
+docker container run -it --name u1 -v myvolume1:/myvolume1 ubuntu
+  ls -lah
+  echo "testowy plik 123" > /myvolume1/test.txt
+  cat /myvolume1/test.txt
+  exit
+docker container run -it --name u2 --volumes-from u1 ubuntu
+  cat /myvolume1/test.txt
+  echo "testowy plik2 123" > /myvolume1/test2.txt
+  cat /myvolume1/test2.txt
+  exit
+docker container ls -a
+docker container start -ai u1 #wystartowanie i ponowne wejście do kontenera
+  cat /myvolume1/test2.txt
+  cat /myvolume1/test.txt
+  exit
+docker container run -it --name u3 --volumes-from u1:ro ubuntu #ro - read-only
+  cat /myvolume1/test.txt
+  cat /myvolume1/test2.txt
+  rm /myvolume1/test.txt  # brak dostępu
+  echo "testowy plik3 123" > /myvolume1/test3.txt #brak dostępu
+  exit
 ```
