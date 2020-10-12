@@ -36,4 +36,35 @@ docker container run -d -p 8080:80 --name mynginx nginx:latest
 curl localhost:8080
 curl localhost:8081
 ```
-
+
+### 6.2 Volumeny
+Wolumeny:
+* Domyślne (w Dockerfile): VOLUME /var/lib/postgresql/data
+* Nazwane: docker volume create <volume_name>
+
+Wolumeny nazwane:
+```bash
+docker container run -d -p 5432:5432 --name db -v dbdata:/var/lib/postgresql/data postgres:9.6
+# lub
+docker volume create dbdata
+docker container run -d -p 5432:5432 --name db -v dbdata:/var/lib/postgresql/data postgres:9.6
+```
+
+```bash
+docker container run -d -p 5432:5432 -e POSTGRES_PASSWORD=test123 --name db postgres:9.6
+docker volume ls
+docker image inspect postgres:9.6
+docker container ls
+docker container rm db --force
+docker volume ls
+docker volume rm 99fb6d762e845d61b348175f4a320c40714bab383cb4819b5584c4f43ec44704
+
+docker container run -d -p 5432:5432 -e POSTGRES_PASSWORD=test123 --name db1 -v my-volume:/var/lib/postgresql/data postgres:9.6
+docker volume ls
+docker volume inspect my-volume
+docker container rm db1 --force
+docker volume ls
+docker volume prune #czyście wszystkie nieużywane volumeny
+# docker system prune #czyści wszystkie nieużywane elementy
+docker volume ls
+```
