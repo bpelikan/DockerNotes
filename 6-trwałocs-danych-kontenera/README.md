@@ -92,4 +92,24 @@ docker container run -it --name u3 --volumes-from u1:ro ubuntu #ro - read-only
   rm /myvolume1/test.txt  # brak dostępu
   echo "testowy plik3 123" > /myvolume1/test3.txt #brak dostępu
   exit
+```
+### 6.4 Bind Mounts
+```bash
+mkdir -p /var/db/pgdata
+docker container run -d -p 5432:5432 --name db -v /var/db/pgdata:/var/lib/postgresql/data postgres:9.6
+
+#
+sudo mkdir -p /var/db/pgdata
+sudo su
+docker container run -d -p 5432:5432 --name db2 -e POSTGRES_PASSWORD=test123 -v /var/db/pgdata:/var/lib/postgresql/data postgres:9.6
+cd /var/db/pgdata
+
+git clone https://github.com/dnaprawa/first_app_in_docker
+cd first_app_in_docker
+ls -l
+cat Dockerfile
+docker build -t first_app:1.0 .
+docker container run -d -p 8080:80 --name first_app_container --mount type=bind,source="$(pwd)",target=/usr/share/nginx/html first_app:1.0
+ls
+vi index.html
 ```
