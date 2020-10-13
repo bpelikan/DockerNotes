@@ -65,4 +65,20 @@ docker-compose config
 docker-compose -f docker-compose.envfile.yml config
 docker-compose up -d
 docker-compose down
-```
+```
+### 7.4 Wiele instancji na podstawie tego samego pliku YAML
+```bash
+cd 7.4
+export WP_PORT="9091" #$Env:WP_PORT="9091" dla PowerShella
+docker-compose -p dev up -d
+export WP_PORT="9092"
+docker-compose -p staging up -d
+export WP_PORT="9093"
+docker-compose -p prod up -d
+docker container ls
+docker-compose -p prod down
+docker-compose -p staging down
+docker-compose -p dev down
+docker container ls
+```
+
