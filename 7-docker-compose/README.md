@@ -81,4 +81,10 @@ docker-compose -p staging down
 docker-compose -p dev down
 docker container ls
 ```
-
+
+### 7.5 Łączenie plików docker-compose.yml
+```bash
+cd 7.5
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up 
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up 
+```
