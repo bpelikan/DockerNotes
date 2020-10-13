@@ -33,4 +33,21 @@ docker container ls -a
 docker volume ls
 docker-compose down -v #-v usuwa również utworzone volumeny
 ```
+
+### 7.2 Automatyczne budowanie obrazów
+```bash
+docker-compose build # wymusza przebudowanie obrazu
+docker-compose up --build # wymusza przebudowanie obrazu
+
+#
+cd 7.2
+docker-compose config
+docker-compose build
+docker-compose up -d
+docker-compose down
+# zmiana w pliku 7.2/ui/src/App.js
+docker-compose build
+docker-compose up -d
+docker-compose down
+```
 
