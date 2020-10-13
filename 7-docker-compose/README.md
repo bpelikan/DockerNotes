@@ -87,4 +87,14 @@ docker container ls
 cd 7.5
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up 
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up 
+```
+### 7.6 Zewnętrzna sieć
+```bash
+docker network create -d bridge myproject-external-network
+docker-compose -f docker-compose.vault.yml up -d
+docker-compose -f docker-compose.vault.yml ps
+docker container run -it --net myproject-external-network ubuntu bash
+  apt-get update && apt-get install -y iputils-ping
+  ping vault
+  exit
 ```
