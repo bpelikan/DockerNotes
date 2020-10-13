@@ -8,3 +8,4 @@
 
 * [6. Trwałość danych kontenera](./6-trwałocs-danych-kontenera/README.md)
 
+* [7. Docker-compose](./7-docker-compose/README.md)
