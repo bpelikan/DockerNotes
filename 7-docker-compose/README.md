@@ -66,6 +66,7 @@ docker-compose -f docker-compose.envfile.yml config
 docker-compose up -d
 docker-compose down
 ```
+
 ### 7.4 Wiele instancji na podstawie tego samego pliku YAML
 ```bash
 cd 7.4
@@ -88,6 +89,7 @@ cd 7.5
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up 
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up 
 ```
+
 ### 7.6 Zewnętrzna sieć
 ```bash
 docker network create -d bridge myproject-external-network
@@ -97,4 +99,14 @@ docker container run -it --net myproject-external-network ubuntu bash
   apt-get update && apt-get install -y iputils-ping
   ping vault
   exit
-```
+```
+
+### 7.7 Tworzenie docker-compose yml na podstawie docker container run
+* Narzędzie [composerize](https://github.com/magicmark/composerize)
+```bash
+node --version
+npm install composerize -g
+composerize docker run -p 80:80 --restart always --name composerize-nginx nginx:1.17
+composerize docker run -d -p 3308:3306 --name db -e MYSQL_DATABASE=exampledb -e MYSQL_USER=exampleuser -e MYSQL_PASSWORD=examplepass -e MYSQL_RANDOM_ROOT_PASSWORD=1 --network=wp mysql:5.7
+composerize docker run -d -p 8080:80 -e WORDPRESS_DB_HOST=db:3306 -e WORDPRESS_DB_USER=exampleuser -e WORDPRESS_DB_PASSWORD=examplepass -e WORDPRESS_DB_NAME=exampledb --network=wp wordpress:latest
+```
