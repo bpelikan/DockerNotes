@@ -50,4 +50,19 @@ docker-compose build
 docker-compose up -d
 docker-compose down
 ```
-
+
+### 7.3 Zmienne środowiskowe
+Plik `.env` 
+* zmienne środowiskowe na hoście mają większy priorytet
+* zmienne środowiskowe zdefiniowane w terminalu mają najwyższy priorytet
+lub `env_file` do załączenia w docker-compose.yml
+* przekazanie zmiennych bezpośrednio do kontenera
+
+```bash
+docker-compose config
+export DB_NAME="FromShellDbName"
+docker-compose config
+docker-compose -f docker-compose.envfile.yml config
+docker-compose up -d
+docker-compose down
+```
