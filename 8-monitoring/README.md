@@ -23,4 +23,28 @@ docker container run -d -p 8081:80 --memory="256M" --cpus="0.6" nginx
 docker container run  --memory="50M" --rm busybox free -m
 docker run --memory 50m --rm -it progrium/stress --vm 1 --vm-bytes 62914560 --timeout 3s
 docker container run -it --cpus=".5" ubuntu bash
-```
+```
+### 8.3 Prosty monitoring
+* [cAdvisor](https://github.com/google/cadvisor)
+
+```bash
+docker container run -d --name apache1 httpd
+docker container run -d --name apache2 --memory="100m" httpd
+docker container run -d --name redis1 redis
+docker container run -d --name redis2 --memory="30m" redis
+docker container ls
+docker container stats
+sudo docker run \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:ro \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --volume=/dev/disk/:/dev/disk:ro \
+  --publish=8080:8080 \
+  --detach=true \
+  --name=cadvisor \
+  --privileged \
+  --device=/dev/kmsg \
+  gcr.io/cadvisor/cadvisor:v0.37.0
+```
+
