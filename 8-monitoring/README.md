@@ -47,4 +47,13 @@ sudo docker run \
   --device=/dev/kmsg \
   gcr.io/cadvisor/cadvisor:v0.37.0
 ```
-
+
+### 8.4 Zaawansowany monitoring
+```bash
+git clone https://github.com/bpelikan/dockprom
+cd dockprom
+ls -l
+cat docker-compose.yml
+ADMIN_USER=admin ADMIN_PASSWORD=fir854jgyndu43fu docker-compose up -d
+docker-compose ps
+```
