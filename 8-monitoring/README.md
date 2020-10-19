@@ -24,6 +24,7 @@ docker container run  --memory="50M" --rm busybox free -m
 docker run --memory 50m --rm -it progrium/stress --vm 1 --vm-bytes 62914560 --timeout 3s
 docker container run -it --cpus=".5" ubuntu bash
 ```
+
 ### 8.3 Prosty monitoring
 * [cAdvisor](https://github.com/google/cadvisor)
 
@@ -56,4 +57,10 @@ ls -l
 cat docker-compose.yml
 ADMIN_USER=admin ADMIN_PASSWORD=fir854jgyndu43fu docker-compose up -d
 docker-compose ps
-```
+```
+
+### 8.5 Monitoring as a Service
+* [ScoutAPM](https://scoutapm.com/)
+* [DataDog](https://www.datadoghq.com/)
+* [Sysdig](https://sysdig.com/)
+* [Sematext](https://sematext.com/)
