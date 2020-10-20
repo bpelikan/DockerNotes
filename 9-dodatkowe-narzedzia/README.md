@@ -11,4 +11,11 @@ docker container run -d nginx
 ### 9.2 Narzędzie z graficznym interfejsem 2
 
 > [Dockstation](https://dockstation.io/)
-
+
+### 9.3 Narzędzie dostępne w terminalu 1
+
+> Dry
+
+```bash
+docker container run --rm -it -v /var/run/docker.sock:/var/run/docker.sock moncho/dry
+```
