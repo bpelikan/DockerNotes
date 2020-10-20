@@ -11,3 +11,6 @@
 * [7. Docker-compose](./7-docker-compose/README.md)
 
 * [8. Monitoring](./8-monitoring/README.md)
+
+* [9. Dodatkowe narzędzia](./9-dodatkowe-narzedzia/README.md)
+
