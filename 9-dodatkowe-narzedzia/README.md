@@ -8,6 +8,7 @@
 docker container run -d -p 9000:9000 -p 8000:8000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v P:\Docker\Portainer:/data portainer/portainer
 docker container run -d nginx
 ```
+
 ### 9.2 Narzędzie z graficznym interfejsem 2
 
 > [Dockstation](https://dockstation.io/)
@@ -18,4 +19,12 @@ docker container run -d nginx
 
 ```bash
 docker container run --rm -it -v /var/run/docker.sock:/var/run/docker.sock moncho/dry
-```
+```
+
+### 9.4 Narzędzie dostępne w terminalu 2
+
+> Lazy Docker
+
+```bash
+curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+```
