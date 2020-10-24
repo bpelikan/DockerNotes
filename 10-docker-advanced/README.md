@@ -86,3 +86,21 @@ journalctl -xe | grep edis
 journalctl -fu docker.service #logi całego Docker Engine
 journalctl -u docker.service #logi całego Docker Engine
 ```
+### 10.6 Debugowanie Docker Engine
+```bash
+nano /etc/docker/daemon.json
+# dodanie "debug": true
+# {
+#     "log-driver": "local",
+#     "debug": true
+# }
+
+sudo kill -SIGHUP $(pidof dockerd)
+docker info
+docker container run -d --name redis-debug redis
+journalctl --no-pager -u docker.service --since "1 minute ago"
+
+docker container rm redis-debug --force
+journalctl --no-pager -u docker.service --since "1 minute ago"
+```
+
