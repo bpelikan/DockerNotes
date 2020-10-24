@@ -134,4 +134,29 @@ curl localhost:9000
 docker run -it --net container:nginx nicolaka/netshoot ngrep -d eth0 -x -q
 docker run -it --net container:nginx nicolaka/netshoot tcpdump -i eth0 port 80 -c 1 -Xvv # nasługiwanie ruchu sieciowego na porcie 80
 # otwarcie 2 konsoli i wywołanie curl localhost:9000
-```
+```
+### 10.8 Komunikacja z Dockerem na serwerze
+
+Skonfigurowanie połączenia po SSH z wykorzystaniem pary kluczy:
+
+1. Bezpośrednie połączenie przez SSH
+> docker -H "ssh://user@host" container ls
+
+2. Wskazanie połączenia za pomocą zmiennej środowiskowej
+Linux:
+> export DOCKER_HOST=ssh://user@host
+
+Windows:
+> $dockerHost="ssh://user@host"
+
+> $Env:DOCKER_HOST=$dockerHost
+
+> docker container ls
+
+3. Wykorzystanie context w Dockerze
+> docker context create context1 --docker "host=ssh://user@remote_host"
+
+> docker --context context1 container ls
+
+> docker context use context1
+
