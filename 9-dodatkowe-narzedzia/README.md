@@ -5,6 +5,7 @@
 * [Portainer](https://www.portainer.io/)
 
 ```bash
+# Utworzenie folderu P:\Docker oraz udostępnienie go w ustawieniach Docker Desktop
 docker container run -d -p 9000:9000 -p 8000:8000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v P:\Docker\Portainer:/data portainer/portainer
 docker container run -d nginx
 ```
