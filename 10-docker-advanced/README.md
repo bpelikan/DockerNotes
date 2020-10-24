@@ -103,4 +103,35 @@ journalctl --no-pager -u docker.service --since "1 minute ago"
 docker container rm redis-debug --force
 journalctl --no-pager -u docker.service --since "1 minute ago"
 ```
-
+
+### 10.7 Debugowanie kontenerów
+
+Container PID mode:
+* możemy pozwolić na dostęp do procesów hosta wewnątrz kontenera `--pid=host`
+* w obrębie jednego kontenera możemy pozwolić na dostep do procesów innego kontenara `--pid=container:<name|id>`
+
+Container Network mode:
+* możemy pozwolić na dostęp do interfejsów hosta wewnątz kontenera `--net=host`
+* w obrębie jednego kontenera możemy pozwolić na dostęp do procesów innego kontenera `--net=container:<id|name>`
+
+```bash
+docker image pull jonbaldie/htop
+
+docker run -it --rm --pid=host jonbaldie/htop #podgląd wszystkich procesów działających na hoście
+
+docker run -d -p 9000:80 --name nginx nginx
+docker run -it --rm --pid=container:nginx jonbaldie/htop #podgląd wszystkich procesów działających w kontenerze nginx
+
+docker run -it --rm --pid=container:nginx --cap-add sys_admin --cap-add sys_ptrace dnaprawa/strace #podgląd stacktrace kontenera
+
+docker run -it --rm --pid=container:nginx --cap-add sys_admin --cap-add sys_ptrace dnaprawa/strace sh
+    ls -l /proc/1/root
+    ls -l /proc/1/root/usr/share/nginx/html
+    vi /proc/1/root/usr/share/nginx/html/index.html
+    exit
+curl localhost:9000
+
+docker run -it --net container:nginx nicolaka/netshoot ngrep -d eth0 -x -q
+docker run -it --net container:nginx nicolaka/netshoot tcpdump -i eth0 port 80 -c 1 -Xvv # nasługiwanie ruchu sieciowego na porcie 80
+# otwarcie 2 konsoli i wywołanie curl localhost:9000
+```
