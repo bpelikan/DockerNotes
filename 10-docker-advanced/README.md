@@ -86,6 +86,7 @@ journalctl -xe | grep edis
 journalctl -fu docker.service #logi całego Docker Engine
 journalctl -u docker.service #logi całego Docker Engine
 ```
+
 ### 10.6 Debugowanie Docker Engine
 ```bash
 nano /etc/docker/daemon.json
@@ -135,6 +136,7 @@ docker run -it --net container:nginx nicolaka/netshoot ngrep -d eth0 -x -q
 docker run -it --net container:nginx nicolaka/netshoot tcpdump -i eth0 port 80 -c 1 -Xvv # nasługiwanie ruchu sieciowego na porcie 80
 # otwarcie 2 konsoli i wywołanie curl localhost:9000
 ```
+
 ### 10.8 Komunikacja z Dockerem na serwerze
 
 Skonfigurowanie połączenia po SSH z wykorzystaniem pary kluczy:
@@ -159,4 +161,31 @@ Windows:
 > docker --context context1 container ls
 
 > docker context use context1
-
+
+
+### 10.9 Przechowywanie warstw obrazu na dysku
+
+Overlay2:
+* Storage driver - od niego zależy jak warstwy obrazów są przechowywane na dysku
+* Katalog `/var/lib/docker/overlay2`
+
+```bash
+docker image pull redis
+docker image inspect redis
+# pobranie ostatniego wpisu z GraphDriver.Data.LowerDir
+# /var/lib/docker/overlay2/72c57cf93a93986b42b78783f311639ced43ec2bfe5b76a4e657de86c99820c0/diff
+cd /var/lib/docker/overlay2/72c57cf93a93986b42b78783f311639ced43ec2bfe5b76a4e657de86c99820c0/diff
+ls -lah # wyświetlone zostają pliki i obiekty pierwszej warstwy obrazu
+cd ..
+ls -lah
+cat link # wyświetlenie skróconego linku wartwy pierwszej
+
+docker image inspect redis
+# pobranie drugiego wpisu od końca z GraphDriver.Data.LowerDir
+# /var/lib/docker/overlay2/de1037552243f2a4fb6c6eb52039aaebf19570e60a3e068fa4cd1c7fbbd662b3/diff
+cd /var/lib/docker/overlay2/de1037552243f2a4fb6c6eb52039aaebf19570e60a3e068fa4cd1c7fbbd662b3/diff
+ls -lah # wyświetlone zostają pliki warstwy drugiej obrazu
+cd ..
+ls -lah
+cat lower # wyświetlenie skróconego linku wartwy nadrzędnej, czyli w tym przypadku wartwy pierwszej
+```
