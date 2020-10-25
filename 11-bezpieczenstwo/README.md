@@ -26,4 +26,26 @@ docker exec -it ubuntu-customuser bash
     cd hacking/home/bartoszpelikan/
     touch test-file # odmowa dostępu
     exit
-```
+```
+
+### 11.4 User re-mapping
+```bash
+ls -lah /var/lib/docker
+nano /etc/docker/daemon.json
+# dodanie wpisu "userns-remap": "default"
+sudo mkdir -p /etc/systemd/system/docker.service.d
+sudo nano /etc/systemd/system/docker.service.d/docker.conf
+#[Service]
+#ExecStart=
+#ExecStart=/usr/bin/dockerd
+sudo systemctl daemon-reload
+systemctl restart docker
+ls -lah /var/lib/docker
+
+docker run -itd --name ubuntu-remap ubuntu bash
+docker exec -it ubuntu-remap ps aux
+docker container top ubuntu-remap # PID: 2892
+ps -aux | grep bash
+# 296608    2892  0.1  0.0   4112  3392 pts/0    Ss+  15:46   0:00 bash
+```
+
