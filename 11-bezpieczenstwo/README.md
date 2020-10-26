@@ -66,3 +66,31 @@ docker container run --rm -it --cap-drop ALL --cap-add CHOWN alpine chown nobody
 docker container run --rm -it --cap-drop CHOWN alpine chown nobody / #błąd
 docker container run --rm -it --cap-drop chown -u nobody alpine chown nobody / #błąd - nie ma możliwości aby dodać capabilities innemu użytkownikowi niż rootddd
 ```
+
+### 11.6 AppArmor i SELinux
+
+* Domyślny moduł bezpieczeństwa dla dystrybucji: Ubuntu, Debian (od wersji 10), OpenSUSE
+* Zabezpiecza system operacyjny poprzez profile dla pojedynczych aplikacji lub kontenerów
+* Pozwala kontrolować:
+    * dostęp do plików
+    * dostęp do sieci
+    * wykonywanie zadań (chown, setuid etc)
+* Tworzymy profile per kontener - nie per Docker Daemon
+* Domyślnie każdy kontener uruchamiany jest z profilem docker-default
+    ```bash
+    docker run --rm -it --security-opt apparmor=docker-default hello-world
+    # to samo co
+    docker rum --rm -it hello-world
+    ```
+* Można uruchomić kontener bez żadnego profilu (nie zalecane)
+    * `--security-opt apparmor=unconfined`
+* `apparmor_status` - wyświetla status poszczególnych profilów
+
+```bash
+docker container run -dit --name apparmor1 alpine sh
+apparmor_status
+docker container rm -f apparmor1
+docker container run -dit --name apparmor2 --security-opt apparmor=unconfined alpine sh
+apparmor_status
+docker container rm -f apparmor2
+```
