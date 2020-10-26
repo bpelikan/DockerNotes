@@ -94,6 +94,7 @@ docker container run -dit --name apparmor2 --security-opt apparmor=unconfined al
 apparmor_status
 docker container rm -f apparmor2
 ```
+
 ### 11.7 Skanowanie obrazów pod kątem bezpieczeństwa
 
 1. Git scanning: Snyk.io, GitHub
@@ -103,4 +104,9 @@ docker container rm -f apparmor2
 ### 11.9 Walidator obrazów
 
 [Dockle](https://github.com/goodwithtech/dockle)
-
+
+### 11.10 Weryfikacja hosta
+
+* [Dockerbench](https://github.com/docker/docker-bench-security)
+* Skrypt weryfikujący najlepsze praktyki - sprawdza Docker Hosta
+
