@@ -99,4 +99,8 @@ docker container rm -f apparmor2
 1. Git scanning: Snyk.io, GitHub
 2. Skanowanie podczas budowania obrazu: Aqua Microscanner
 3. Skanowanie po zbudowaniu obrazu: Anchore, Clair, Trivy
+
+### 11.9 Walidator obrazów
+
+[Dockle](https://github.com/goodwithtech/dockle)
 
