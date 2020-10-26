@@ -49,3 +49,20 @@ ps -aux | grep bash
 # 296608    2892  0.1  0.0   4112  3392 pts/0    Ss+  15:46   0:00 bash
 ```
 
+### 11.5 Capabilities
+
+Capabilities - mechanizm linuxowy za pomocą którego możemy ograniczyć uprawnienia roota (tylko i wyłączenie dla roota)
+* domyślnie Docker usuwa wszystkie capabilities, a nastepnie dodaje tylko te które uważa za niezbędne
+
+`docker run --cap-drop <CAP_TYPE> <IMAGE>` - usunięcie
+`docker run --cap-drop <CAP_TYPE> <IMAGE>` - usunięcie wszystkich
+`docker run --cap-add <CAP_TYPE> <IMAGE>` - dodanie
+
+[All capabilities](https://man7.org/linux/man-pages/man7/capabilities.7.html)
+
+```bash
+docker container run --rm -it alpine chown nobody /
+docker container run --rm -it --cap-drop ALL --cap-add CHOWN alpine chown nobody /
+docker container run --rm -it --cap-drop CHOWN alpine chown nobody / #błąd
+docker container run --rm -it --cap-drop chown -u nobody alpine chown nobody / #błąd - nie ma możliwości aby dodać capabilities innemu użytkownikowi niż rootddd
+```
