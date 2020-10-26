@@ -94,3 +94,9 @@ docker container run -dit --name apparmor2 --security-opt apparmor=unconfined al
 apparmor_status
 docker container rm -f apparmor2
 ```
+### 11.7 Skanowanie obrazów pod kątem bezpieczeństwa
+
+1. Git scanning: Snyk.io, GitHub
+2. Skanowanie podczas budowania obrazu: Aqua Microscanner
+3. Skanowanie po zbudowaniu obrazu: Anchore, Clair, Trivy
+
