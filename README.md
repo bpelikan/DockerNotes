@@ -18,6 +18,8 @@
 
 * [11. Bezpieczeństwo](./11-bezpieczenstwo/README.md)
 
+* [12. DevOps](./12-devops/README.md)
+
 
 
 
