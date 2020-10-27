@@ -52,4 +52,7 @@ docker image pull localhost:5000/ubuntu:18.04 #error - no basic auth credentials
 docker login -u user -p password123 localhost:5000
 docker image pull localhost:5000/ubuntu:18.04 # działa
 ```
-
+
+### 12.2 Bezpieczne Docker Registry
+
+* [Run an externally-accessible registry](https://docs.docker.com/registry/deploying/#get-a-certificate)
