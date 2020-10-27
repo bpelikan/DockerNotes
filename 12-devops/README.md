@@ -56,9 +56,16 @@ docker image pull localhost:5000/ubuntu:18.04 # działa
 ### 12.2 Bezpieczne Docker Registry
 
 * [Run an externally-accessible registry](https://docs.docker.com/registry/deploying/#get-a-certificate)
+
 ### 12.3 Docker Registry storage driver
 
 * Konfiguracja zdefiniowana w pliku YAML 
 * Znajduje się wewnątrz kontenera w katalogu `etc/docker/registy/config.yml`
 * Możliwość nadpisania poszczególnych zmiennych
-* Możliwość nadpisania całej konfiguracji
+* Możliwość nadpisania całej konfiguracji
+
+### 12.4 Interfejs graficzny dla Docker Registry
+
+* [Docker Registry Frontend](https://github.com/kwk/docker-registry-frontend)
+* [Portus](http://port.us.org/)
+* [GoGarbor](https://goharbor.io/)
