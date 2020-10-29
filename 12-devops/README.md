@@ -69,3 +69,17 @@ docker image pull localhost:5000/ubuntu:18.04 # działa
 * [Docker Registry Frontend](https://github.com/kwk/docker-registry-frontend)
 * [Portus](http://port.us.org/)
 * [GoGarbor](https://goharbor.io/)
+
+### 12.8 Odśmiecanie systemu
+
+* `docker system df` - sprawdzenie zajmowanego miejsca
+* `docker system prune` - polecenie do manualnego czyszczenia całego środowiska
+  * należy korzystać z niego świadomie
+  * usuwa wszystkie nieużywane obrazy (w tym obrazy pośrednie), kontenery, sieci
+  * nie usuwa nieużywanych volumenów
+
+Usuwanie częściowe:
+  * `docker volume prune`
+  * `docker container prune`
+  * `docker image prune`
+  * `docker network prune`
