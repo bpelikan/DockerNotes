@@ -49,4 +49,22 @@ docker service ps mynginx
 docker node update --availability drain manager2 #node2/manager2 przestaje być dostepny
 docker service ls
 docker service ps mynginx
+```
+### 13.5 Docker Swarm Stacks
+```bash
+cd 13.5
+docker stack deploy --compose-file docker-compose.stack.yml app
+docker stack rm app
+docker stack rm mynginx
+docker service ls
+
+docker service ps app_vote
+docker service scale app_vote=5
+docker service ps app_vote
+
+docker swarm leave
+docker swarm leave --force
+docker node ls
+docker stack rm app
+docker service ls
 ```
