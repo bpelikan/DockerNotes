@@ -32,3 +32,21 @@ docker node promote node4
 docker node ls
 docker node demote node3
 ```
+### 13.4 Docker Swarm Services
+```bash
+docker service create --name mynginx -d -p 8080:80 --replicas 3 nginx:1.16.1
+docker service ls
+docker service ps mynginx
+
+docker service scale mynginx=6
+docker service ls
+docker service ps mynginx
+
+docker service update --image nginx:1.17.8 mynginx
+docker service ls
+docker service ps mynginx
+
+docker node update --availability drain manager2 #node2/manager2 przestaje być dostepny
+docker service ls
+docker service ps mynginx
+```
