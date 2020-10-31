@@ -32,6 +32,7 @@ docker node promote node4
 docker node ls
 docker node demote node3
 ```
+
 ### 13.4 Docker Swarm Services
 ```bash
 docker service create --name mynginx -d -p 8080:80 --replicas 3 nginx:1.16.1
@@ -50,6 +51,7 @@ docker node update --availability drain manager2 #node2/manager2 przestaje być 
 docker service ls
 docker service ps mynginx
 ```
+
 ### 13.5 Docker Swarm Stacks
 ```bash
 cd 13.5
@@ -67,4 +69,13 @@ docker swarm leave --force
 docker node ls
 docker stack rm app
 docker service ls
-```
+```
+
+### 13.6 Docker Swarm Best Practices
+
+* Manager node - statyczny adres IP
+* Ilość hostów w trybie manager - minimum 3
+* Regularne tworzenie backupów `/var/lib/docker/swarm`
+* Przywracanie danych z backupów `/var/lib/docker/swarm`
+  * `docker swarm init --force-new-cluster`
+* Node Health Monitoring - HTTP API `/nodes`
